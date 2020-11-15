@@ -1,0 +1,10 @@
+{{ header | safe}} 
+<main role="main" class="inner cover">
+    <h1 class="cover-heading">Professors</h1>
+    <p class="lead">
+        {% for item in professors %}
+            <li>{{ item[2] }}, {{ item[1] }} </li>
+        {% endfor %}
+    </p>
+</main>
+{{ footer | safe}}
