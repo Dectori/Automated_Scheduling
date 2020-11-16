@@ -2,7 +2,7 @@ from flask import Flask
 from flask import render_template
 import db
 app = Flask(__name__)
-
+app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 def generateHTML(body, **args):
     header = render_template("header.html")
@@ -21,5 +21,10 @@ def login():
     return generateHTML("login.html")
 
 @app.route('/professors')
-def professors():
-    return generateHTML("professors.html", test="Success", professors= db.getProfessors())
+@app.route('/professors/<id>')
+def professors(id=None):
+    if id is None:
+        return generateHTML("professors.html", professors= db.getProfessors())
+    else:
+        return generateHTML("professor.html")
+

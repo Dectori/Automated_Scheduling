@@ -3,7 +3,7 @@
     <h1 class="cover-heading">Professors</h1>
     <p class="lead">
         {% for item in professors %}
-            <li>{{ item[2] }}, {{ item[1] }} </li>
+            <a href="{{ '/professors/%s'%item.id }}">{{ item.first_name }}, {{ item.last_name }}</a><br/>
         {% endfor %}
     </p>
 </main>

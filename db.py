@@ -10,19 +10,31 @@ sqlDB = mysql.connector.connect(
 
 myDB = sqlDB.cursor()
 
-def getProfessors():
-    myDB.execute("SELECT * FROM professors")
-    myresult = myDB.fetchall()
-    return myresult
+def formatData(query):
+    myDB.execute(query)
+    records = myDB.fetchall()
+    result = []
+    for row in records:
+        item = {}
+        i = 0
+        for field in myDB.column_names:
+            item[field] = row[i]
+            i += 1
 
-def getTime():
-    myDB.execute("SELECT * FROM Times")
-    myresult = myDB.fetchall()
-    return myresult
+        result.append(item)
+        
+    return result
+
+
+def getProfessors():
+    return formatData("SELECT * FROM Professors")
+
+
+def getTime(): 
+    return formatData("SELECT * FROM Times")
 
 def getClasses():
-    myDB.execute("SELECT * FROM Classes")
-    myresult = myDB.fetchall()
-    return myresult
+    return formatData("SELECT * FROM Classes")
 
-
+def getProfessor(id):
+    return formatData("SELECT * FROM Professors")
