@@ -1,12 +1,9 @@
 import db
 
-numOfClasses = db.numOfClasses()
-remainderClass = (db.numOfClasses() % db.numOfProf())
-loopCount = (db.numOfClasses() - remainderClass) / db.numOfProf() 
-
 times = db.getTime()
 totalSessions = len(times)
 
+#arrange and return the Automated Schedule
 def getSchedule():
     remainingTimes = {}
     for classData in  db.classRooms():
@@ -37,9 +34,3 @@ def getSchedule():
         i += 1
 
     return schedule
-
-
-
-#Task --- Assign professors their alloted times and classrooms, in which no 2 professors
-#        can have conflicting times/classrooms 
-#        rooms = 202, 204, 206, 209, 211

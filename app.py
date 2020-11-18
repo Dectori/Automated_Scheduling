@@ -1,3 +1,4 @@
+#import Flask webserver framework
 from flask import Flask
 from flask import render_template, send_from_directory
 from scheduler import getSchedule
@@ -6,6 +7,8 @@ app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 db.delSchedule()
 db.genSchedule(getSchedule())
+
+#Function to generate the htmls used on the server
 def generateHTML(body, **args):
     header = render_template("header.html")
     footer = render_template("footer.html")
@@ -13,7 +16,7 @@ def generateHTML(body, **args):
     renderArgs.update(args)
     return render_template(body, **renderArgs)
     
-
+#Creates routes to server 
 @app.route('/')
 def index():
     return generateHTML("home.html")

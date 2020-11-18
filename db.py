@@ -1,6 +1,7 @@
 #import connector to mysql database
 import mysql.connector
 
+#connector to the sql schema
 sqlDB = mysql.connector.connect(
     host = "127.0.01",
     user = "root",
@@ -10,6 +11,8 @@ sqlDB = mysql.connector.connect(
 
 myDB = sqlDB.cursor()
 
+#function to take a query for the database
+#and formats it into a list
 def formatData(query):
     myDB.execute(query)
     records = myDB.fetchall()
@@ -25,6 +28,7 @@ def formatData(query):
         
     return result
 
+#function to create an object from a query
 def formatObject(query):
     myDB.execute(query)
     records = myDB.fetchall()
@@ -37,6 +41,7 @@ def formatObject(query):
         
     return item
 
+#function below are used to get/arrange the data from the sql database
 def insertQuery(query, records):
     myDB.executemany(query, records)
     sqlDB.commit()
