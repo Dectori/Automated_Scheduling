@@ -1,6 +1,6 @@
 {{ header | safe}} 
 <main role="main" class="inner cover">
-    <h1 class="cover-heading">Hacer, Varol</h1>
+    <h1 class="cover-heading">{{professor["first_name"]}} , {{professor.last_name}}</h1>
     <p class="lead">
           <table class="table table-bordered table-dark">
             <thead>
@@ -13,21 +13,17 @@
               </tr>
             </thead>
             <tbody>
+
+              {% for item in schedule %}
               <tr>
-                <th scope="row">1432</th>
-                <td>Java 1</td>
-                <td>MWF</td>
-                <td>8:00 - 8:50</td>
-                <td>202</td>
+                <th scope="row">{{item.course_number}}</th>
+                <td>{{item.class_name}}</td>
+                <td>{{item.day}}</td>
+                <td>{{item.time_start}} - {{item.time_end}}</td>
+                <td>{{item.class_room}}</td>
               </tr>
-              <tr>
-                <th scope="row">1437</th>
-                <td>Java 2</td>
-                <td>MWF</td>
-                <td>9:00 - 9: 50</td>
-                <td>204</td>
-              </tr>
-            
+              {% endfor %}
+              
             </tbody>
           </table>
     </p>

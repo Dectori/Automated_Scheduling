@@ -25,6 +25,21 @@ def formatData(query):
         
     return result
 
+def formatObject(query):
+    myDB.execute(query)
+    records = myDB.fetchall()
+
+    item = {}
+    i = 0
+    for field in myDB.column_names:
+        item[field] = records[0][i]
+        i += 1
+        
+    return item
+
+def insertQuery(query, records):
+    myDB.executemany(query, records)
+    sqlDB.commit()
 
 def getProfessors():
     return formatData("SELECT * FROM Professors")
@@ -37,4 +52,32 @@ def getClasses():
     return formatData("SELECT * FROM Classes")
 
 def getProfessor(id):
-    return formatData("SELECT * FROM Professors")
+    return formatObject("SELECT * FROM Professors WHERE id = {id}".format(id = id))
+
+def getSchedule(id=None):
+    if id is None:
+        return formatData("SELECT * FROM Schedule")
+
+    return formatData("SELECT * FROM Schedule WHERE professor_id = {id}".format(id = id))
+
+def genSchedule(values):
+    insertQuery("INSERT INTO Schedule(professor_id, course_number, class_name, day, class_room, time_start, time_end) VALUES (%s,%s,%s,%s,%s,%s,%s)", values)
+    
+def delSchedule():
+    myDB.execute("DELETE  FROM Schedule")
+    sqlDB.commit()
+
+def numOfClasses():
+    return formatObject("SELECT COUNT(*) AS `count` FROM Classes")["count"]
+
+def numOfProf():
+    return formatObject("SELECT COUNT(*) AS `count` FROM Professors")["count"]
+
+def classList():
+    return formatData("SELECT id, class_name, class_number FROM Classes")
+
+def classRooms():
+    return formatData("SELECT classroom FROM Class_Rooms")
+
+
+
